@@ -77,6 +77,29 @@ void deleteList(struct Node** head){
 
 	}
 }
+struct Node* reverseList(struct Node* head){
+	/*struct Node* curr = head;
+	struct Node* next;
+	struct Node* prev = NULL;
+	while(curr){
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	return prev;*/
+    struct Node* secondHead;
+    struct Node* newHead;
+    if(head==NULL)
+    	return NULL;
+    if(head->next==NULL)
+    	return head;
+    secondHead = head->next;
+    head->next = NULL;
+    newHead = reverseList(secondHead);
+    secondHead->next = head;
+    return newHead;
+}
 void traverse(struct Node* head){
 	cout<<"Traversing Linked list...."<<endl;
 	struct Node* temp=head;
@@ -97,13 +120,14 @@ int main()
 		cout<<"Press 3 to delete front node in : "<<endl;
 		cout<<"Press 4 to insert at a position : "<<endl;
 		cout<<"Press 5 to delete whole linked list : "<<endl;
+		cout<<"Press 6 to reverse list : "<<endl;
 		cout<<"Press 9 to exit : "<<endl;
 		cout <<"Enter your choice - ";
 		cin>>choice;
 		switch(choice){
 			case 1:
 				if(head){
-					cout<<"linked list already created";
+					cout<<"linked list already created : "<<endl;
 				}else{
 					head = createLinkedList();
 				}
@@ -122,6 +146,9 @@ int main()
 			case 5:
 				deleteList(&head);
 				break;
+			case 6:
+			    head = reverseList(head);
+			    break;
 			case 9:
 				loop = false;
 				break;
